@@ -11,7 +11,7 @@ _Academic first semester 2023-2024_
   * Lexing, Parsing, [slides](course/capmif_cours02_lexing_parsing.pdf).
   * [Demo Parsing](course/ANTLRExamples.tar.xz).
 
-- :hammer: Lab 1: Thursday 14/09/2021, 8h00-10h00. Rooms E001
+- :hammer: Lab 1: Thursday 14/09/2023, 8h00-10h00. Rooms E001 (Samuel Humeau et Thievenaz Hugo)
 
   * Introduction to RISCV [TP01](TP01/tp1.pdf).
   * Code in [TP01/](TP01/).
@@ -28,7 +28,7 @@ _Academic first semester 2023-2024_
 
   * Semantics [slides in english](course/cap_cours03b_semantics.pdf).
 
-- :book: Course: Thursday 21/09/2021, 8h00-10h00. **Amphi B** (Ludovic Henrio)
+- :book: Course: Thursday 21/09/2023, 8h00-10h00. **Amphi B** (Ludovic Henrio)
 
   * Typing [slides in english](course/CAP_cours04_typing.pdf).
 
@@ -40,7 +40,7 @@ _Academic first semester 2023-2024_
   * [Demo files](course/ANTLRExamples.tar.xz).
   * [Grammar exercise](course/TD2.pdf).
 
-- :hammer: Lab 2: Thursday 14/09/2021, 8h00-10h00. Rooms E001
+- :hammer: Lab 2: Thursday 14/09/2023, 8h00-10h00. Rooms E001 (Samuel Humeau et Thievenaz Hugo)
 
   * Lexing & Parsing with ANTLR4 [TP02](TP02/tp2.pdf).
   * Code in [TP02/](TP02/).
