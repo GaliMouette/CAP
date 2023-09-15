@@ -3,7 +3,7 @@ _Academic first semester 2023-2024_
 
 # Week 1:
 
-- :book: Course: Monday 12/09/2023, 13h30-15h30. Amphi B (Gabriel Radanne)
+- :book: Course: Tuesday 12/09/2023, 13h30-15h30. Amphi B (Gabriel Radanne)
   
   * Introduction: [transparents](course/capmif_cours01_intro_et_archi.pdf).
   * ISA [ref pdf RISCV](course/riscv_isa.pdf).
@@ -24,9 +24,9 @@ _Academic first semester 2023-2024_
 
 # Week 2:
 
-- :book: Course: Monday 19/09/2023, 13h30-15h30. Amphi B (Ludovic Henrio)
+- :book: Course: Tuesday 19/09/2023, 13h30-15h30. Amphi B (Ludovic Henrio)
 
-  * Semantics [slides in english](course/cap_cours03b_semantics.pdf).
+  * Semantics [slides in english](course/CAP_Semantics.pdf).
 
 - :book: Course: Thursday 21/09/2023, 8h00-10h00. **Amphi B** (Ludovic Henrio)
 
