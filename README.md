@@ -11,9 +11,9 @@
   - Ludovic Henrio, CNRS, LIP https://lhenrio.github.io/
 
 * Visio (for co-modal): https://webconference2.ens-lyon.fr/b/gab-by3-zmw-11m
-* Page on the "portail des études ENSL" : https://etudes.ens-lyon.fr/course/view.php?id=5249
+* Page on the "portail des études ENSL" : https://etudes.ens-lyon.fr/course/view.php?id=5673
 * Discord Channel: https://discord.com/channels/691214205692542976/771392543853117460
-* Previous year's video courses: https://www.youtube.com/playlist?list=PLtjm-n_Ts-J-6EU1WfVIWLhl1BUUR-Sqm
+* Covid Era's video courses: https://www.youtube.com/playlist?list=PLtjm-n_Ts-J-6EU1WfVIWLhl1BUUR-Sqm
 
 ## Get the repository
 
@@ -50,4 +50,5 @@ in (finalnote + ccgrade)/2
 
   * Labs (ENSL 2019 version): Laure Gonnord, Ludovic Henrio, Matthieu Moy, Marc de Vismes
   * 2020 : Gabriel Radanne, Paul Iannetta
-  * 2021-2022 : Nicolas Chappe, Remi Di Guardia
+  * 2021-2023 : Nicolas Chappe, Remi Di Guardia
+  * 2023-2024 : Nicolas Thievenaz, Samuel Humeau
