@@ -34,13 +34,13 @@ _Academic first semester 2023-2024_
 
 # Week 3:
 
-- :book: Course: Monday 19/09/2023, 13h30-15h30. Amphi B (Gabriel Radanne)
+- :book: Course: Tuesday 26/09/2023, 13h30-15h30. Amphi B (Gabriel Radanne)
 
   * Interpreters [slides in english](course/capmif_cours03_interpreters.pdf).
   * [Demo files](course/ANTLRExamples.tar.xz).
   * [Grammar exercise](course/TD2.pdf).
 
-- :hammer: Lab 2: Thursday 14/09/2023, 8h00-10h00. Rooms E001 (Samuel Humeau et Hugo Thievenaz)
+- :hammer: Lab 2: Thursday 28/09/2023, 8h00-10h00. Rooms E001 (Samuel Humeau et Hugo Thievenaz)
 
   * Lexing & Parsing with ANTLR4 [TP02](TP02/tp2.pdf).
   * Code in [TP02/](TP02/).
