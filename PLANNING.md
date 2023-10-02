@@ -44,3 +44,15 @@ _Academic first semester 2023-2024_
 
   * Lexing & Parsing with ANTLR4 [TP02](TP02/tp2.pdf).
   * Code in [TP02/](TP02/).
+
+# Week 4:
+
+- :book: Course: Monday 19/09/2023, 13h30-15h30. Amphi B (Gabriel Radanne)
+
+    * 3A Code Generation [slides in english](course/capmif_cours05_3ad_codegen.pdf). * CFG (first section) [slides in english](course/capmif_cours06_irs.pdf).
+
+- :hammer: Lab 3: Thursday 14/09/2023, 8h00-10h00. Rooms E001 (Samuel Humeau et Hugo Thievenaz)
+
+  * Interpreter & Typer [TP03](TP03/tp3.pdf).
+  * Code in [TP03/](TP03/) and [MiniC/TP03/](MiniC/TP03/).
+
