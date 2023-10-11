@@ -37,8 +37,8 @@ doc: antlr
 	sphinx-apidoc -e -f -o doc/api . TP* replace_* *Wrapper* MiniC* conf* test*
 	make -C doc html
 
-test: test-interpret
 
+test: test-interpret test-codegen
 
 
 test-pyright: antlr
@@ -69,8 +69,6 @@ test-naive: test-pyright antlr
 test-mem: test-pyright antlr
 	$(LINEAR) python3 -m pytest $(PYTEST_BASE_OPTS) $(PYTEST_OPTS) ./test_codegen.py -k 'test_alloc_mem'
 
-test-hybrid: test-pyright antlr
-	$(LINEAR) python3 -m pytest $(PYTEST_BASE_OPTS) $(PYTEST_OPTS) ./test_codegen.py -k 'hybrid'
 
 # Test for all but the smart allocator, i.e. everything that lab4 should pass:
 test-lab4: test-pyright antlr
