@@ -79,9 +79,10 @@ if 'TEST_FILES' in os.environ:
     ALL_IN_MEM_FILES = ALL_FILES
 
 if 'FILTER' in os.environ:
-    ALL_FILES = filter_pathnames(ALLOC_FILES,os.environ['FILTER'])
+    ALL_FILES = filter_pathnames(ALL_FILES,os.environ['FILTER'])
     ALLOC_FILES = filter_pathnames(ALLOC_FILES, os.environ['FILTER'])
     ALL_IN_MEM_FILES = filter_pathnames(ALL_IN_MEM_FILES, os.environ['FILTER'])
+    print(ALL_FILES)
 
 
 class TestCodeGen(TestExpectPragmas, TestCompiler):
