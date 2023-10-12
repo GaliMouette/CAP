@@ -47,11 +47,8 @@ MINIC_COMPILE = os.path.join(IMPLEM_DIR, 'MiniCC.py')
 
 ALL_FILES = []
 # tests for typing AND evaluation
-ALL_FILES += glob.glob(os.path.join(TEST_DIR, 'TP04/tests/provided/**/[a-zA-Z]*.c'),
+ALL_FILES += glob.glob(os.path.join(TEST_DIR, '*/tests/**/[a-zA-Z]*.c'),
                        recursive=True)
-ALL_FILES += glob.glob(os.path.join(TEST_DIR, 'TP04/tests/students/**/[a-zA-Z]*.c'),
-                       recursive=True)
-
 
 ALLOC_FILES = glob.glob(os.path.join(HERE, 'TP05/tests/**/*.c'), recursive=True)
 
@@ -82,7 +79,7 @@ if 'TEST_FILES' in os.environ:
     ALL_IN_MEM_FILES = ALL_FILES
 
 if 'FILTER' in os.environ:
-    ALL_FILES = filter_pathnames(ALL_FILES, os.environ['FILTER'])
+    ALL_FILES = filter_pathnames(ALLOC_FILES,os.environ['FILTER'])
     ALLOC_FILES = filter_pathnames(ALLOC_FILES, os.environ['FILTER'])
     ALL_IN_MEM_FILES = filter_pathnames(ALL_IN_MEM_FILES, os.environ['FILTER'])
 
