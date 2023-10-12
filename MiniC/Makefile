@@ -6,7 +6,7 @@ PYTEST_OPTS =
 # Run the whole test infrastructure for a subset of test files e.g.
 #   make FILTER='TP03/**/bad*.c' test
 ifdef FILTER
-$(shell export FILTER)
+export FILTER
 endif
 
 # code generation mode
@@ -64,7 +64,6 @@ endif
 
 # Test for naive allocator (also runs test_expect to check // EXPECTED directives):
 test-naive: test-pyright antlr
-	python3 ./test_codegen.py
 	$(LINEAR) python3 -m pytest $(PYTEST_BASE_OPTS) $(PYTEST_OPTS) ./test_codegen.py -k 'naive or expect'
 
 test-mem: test-pyright antlr
