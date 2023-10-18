@@ -51,4 +51,4 @@ in (finalnote + ccgrade)/2
   * Labs (ENSL 2019 version): Laure Gonnord, Ludovic Henrio, Matthieu Moy, Marc de Vismes
   * 2020 : Gabriel Radanne, Paul Iannetta
   * 2021-2023 : Nicolas Chappe, Remi Di Guardia
-  * 2023-2024 : Nicolas Thievenaz, Samuel Humeau
+  * 2023-2024 : Samuel Humeau, Hugo Thievenaz
