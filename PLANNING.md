@@ -67,8 +67,19 @@ _Academic first semester 2023-2024_
 
 # Week 6:
 
+- :book: Course: Monday 17/10/2023, 13h30-15h30. Amphi B (Gabriel Radanne)
+
+  * CFG (second section) [slides in english](course/capmif_cours06_irs.pdf).
+
 - :hammer: Lab 4b: Thursday 19/10/2023, 8h00-10h00. Room E001 (Samuel Humeau & Hugo Thievenaz)
 
   * Control Flow Graph [TP04b](TP04/tp4b.pdf).
   * Code in [MiniC/TP04/](MiniC/TP04/).
   * Documentation (updated) [here](docs/html/index.html).
+
+# Week 7:
+
+- :book: Course: Monday 24/10/2023, 13h30-15h30. Amphi B (Gabriel Radanne)
+
+  * Register allocation [slides in english](course/cap_cours07_regalloc.pdf)
+
