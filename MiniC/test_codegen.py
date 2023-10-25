@@ -48,7 +48,7 @@ MINIC_COMPILE = os.path.join(IMPLEM_DIR, 'MiniCC.py')
 ALL_FILES = []
 # tests for typing AND evaluation
 ALL_FILES += glob.glob(os.path.join(TEST_DIR, 'TP04/tests/**/[a-zA-Z]*.c'),
-recursive=True)
+                       recursive=True)
 
 
 ALLOC_FILES = glob.glob(os.path.join(HERE, 'TP05/tests/**/*.c'), recursive=True)
