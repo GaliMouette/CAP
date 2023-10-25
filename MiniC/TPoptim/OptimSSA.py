@@ -413,8 +413,8 @@ class CondConstantPropagation:
                 block._instructions = new_instrs + term_instrs
                 block.set_terminator(new_term)
         # c. Whenever a block B is not executable, delete B
-        # There are no edge implicating B, for such an edge would not be executable,
-        # whence would have been deleted beforehand
+        # There are no edge implicating B, for such an edge would not be
+        # executable, whence would have been deleted beforehand
         for block in self.all_blocks:
             if not self.is_executable(block):
                 del self.cfg._blocks[block.get_label()]
