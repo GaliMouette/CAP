@@ -115,7 +115,7 @@ class MiniCCodeGen3AVisitor(MiniCVisitor):
         c = Condition(ctx.myop.type)
         if self._debug:
             print("relational expression:")
-            print(Trees.toStringTree(ctx, None, self._parser))
+            print(Trees.toStringTree(ctx, [], self._parser))
             print("Condition:", c)
         raise NotImplementedError() # TODO (Exercise 5)
 
@@ -152,7 +152,7 @@ class MiniCCodeGen3AVisitor(MiniCVisitor):
     def visitAssignStat(self, ctx) -> None:
         if self._debug:
             print("assign statement, rightexpression is:")
-            print(Trees.toStringTree(ctx.expr(), None, self._parser))
+            print(Trees.toStringTree(ctx.expr(), [], self._parser))
         expr_temp = self.visit(ctx.expr())
         name = ctx.ID().getText()
         self._current_function.add_instruction(RiscV.mv(self._symbol_table[name], expr_temp))
@@ -167,9 +167,9 @@ class MiniCCodeGen3AVisitor(MiniCVisitor):
     def visitWhileStat(self, ctx) -> None:
         if self._debug:
             print("while statement, condition is:")
-            print(Trees.toStringTree(ctx.expr(), None, self._parser))
+            print(Trees.toStringTree(ctx.expr(), [], self._parser))
             print("and block is:")
-            print(Trees.toStringTree(ctx.stat_block(), None, self._parser))
+            print(Trees.toStringTree(ctx.stat_block(), [], self._parser))
         raise NotImplementedError() # TODO (Exercise 5)
     # visit statements
 
@@ -177,7 +177,7 @@ class MiniCCodeGen3AVisitor(MiniCVisitor):
         expr_loc = self.visit(ctx.expr())
         if self._debug:
             print("print_int statement, expression is:")
-            print(Trees.toStringTree(ctx.expr(), None, self._parser))
+            print(Trees.toStringTree(ctx.expr(), [], self._parser))
         self._current_function.add_instruction_PRINTLN_INT(expr_loc)
 
     def visitPrintlnboolStat(self, ctx) -> None:
@@ -192,5 +192,5 @@ class MiniCCodeGen3AVisitor(MiniCVisitor):
 
     def visitStatList(self, ctx) -> None:
         for stat in ctx.stat():
-            self._current_function.add_comment(Trees.toStringTree(stat, None, self._parser))
+            self._current_function.add_comment(Trees.toStringTree(stat, [], self._parser))
             self.visit(stat)

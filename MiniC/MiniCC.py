@@ -6,6 +6,8 @@ Usage:
     python3 MiniCC.py --help
 """
 
+from __future__ import annotations
+
 from typing import cast
 from enum import Enum
 
