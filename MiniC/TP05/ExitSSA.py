@@ -7,7 +7,7 @@ from typing import cast, List
 from Lib import RiscV
 from Lib.CFG import Block, BlockInstr, CFG
 from Lib.Operands import Temporary
-from Lib.Statement import AbsoluteJump
+from Lib.Statement import AbsoluteJump, Label
 from Lib.Terminator import BranchingTerminator, Return
 from Lib.PhiNode import PhiNode
 from TP05.SequentializeMoves import sequentialize_moves
@@ -22,8 +22,14 @@ def generate_moves_from_phis(phis: List[PhiNode], parent: Block) -> List[BlockIn
     This is an helper function called during SSA exit.
     """
     moves: List[BlockInstr] = []
-    # TODO compute 'moves', a list of 'mv' instructions to insert under parent
-    # (Lab 5a, Exercise 6)
+
+    for phi in phis:
+        if parent.get_label() in phi.srcs:
+            dest = phi.var
+            src = phi.srcs[parent.get_label()]
+            move = RiscV.mv(dest, src)
+            moves.append(move)
+
     return moves
 
 
@@ -39,6 +45,20 @@ def exit_ssa(cfg: CFG, is_smart: bool) -> None:
         parents: List[Block] = b.get_in().copy()  # Copy as we modify it by adding blocks
         for parent in parents:
             moves = generate_moves_from_phis(phis, parent)
+            # if len(moves) == 0:
+                # continue
+            label = Label("phi_{}_{}".format(b.get_label(), parent.get_label()))
+            match b.get_terminator():
+                case AbsoluteJump() as j:
+                    jump = AbsoluteJump(j.label)
+
+                    block = Block(label, moves, jump)
+                    cfg.add_block(block)
+
+                    b.set_terminator(AbsoluteJump(label))
+
+                case BranchingTerminator() as branch:
+                    pass
+
             # TODO Add the block containing 'moves' to 'cfg'
             # and update edges and jumps accordingly (Lab 5a, Exercise 6)
-            raise NotImplementedError("exit_ssa")

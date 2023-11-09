@@ -43,7 +43,12 @@ class MiniCTypingVisitor(MiniCVisitor):
     # type declaration
 
     def visitVarDecl(self, ctx) -> None:
-        raise NotImplementedError()
+        typee = self.visit(ctx.typee())
+        for var in self.visit(ctx.id_l()):
+            if var in self._memorytypes:
+                self._raiseNonType(ctx, "Variable {} already declared".format(
+                    var))
+            self._memorytypes[var] = typee
 
     def visitBasicType(self, ctx):
         assert ctx.mytype is not None
@@ -51,14 +56,16 @@ class MiniCTypingVisitor(MiniCVisitor):
             return BaseType.Integer
         elif ctx.mytype.type == MiniCParser.FLOATTYPE:
             return BaseType.Float
-        else:  # TODO: same for other types
-            raise NotImplementedError()
+        elif ctx.mytype.type == MiniCParser.BOOLTYPE:
+            return BaseType.Boolean
+        elif ctx.mytype.type == MiniCParser.STRINGTYPE:
+            return BaseType.String
 
     def visitIdList(self, ctx) -> List[str]:
-        raise NotImplementedError()
+        return self.visitIdListBase(ctx) + self.visit(ctx.id_l())
 
     def visitIdListBase(self, ctx) -> List[str]:
-        raise NotImplementedError()
+        return [ctx.ID().getText()]
 
     # typing visitors for expressions, statements !
 
@@ -73,7 +80,7 @@ class MiniCTypingVisitor(MiniCVisitor):
         return BaseType.Float
 
     def visitBooleanAtom(self, ctx):
-        raise NotImplementedError()
+        return BaseType.Boolean
 
     def visitIdAtom(self, ctx):
         try:
@@ -91,30 +98,67 @@ class MiniCTypingVisitor(MiniCVisitor):
         return self.visit(ctx.atom())
 
     def visitOrExpr(self, ctx):
-        raise NotImplementedError()
+        ltype = self.visit(ctx.expr(0))
+        rtype = self.visit(ctx.expr(1))
+        if ltype == rtype == BaseType.Boolean:
+            return BaseType.Boolean
+        self._raise(ctx, 'or operands', ltype, rtype)
 
     def visitAndExpr(self, ctx):
-        raise NotImplementedError()
+        ltype = self.visit(ctx.expr(0))
+        rtype = self.visit(ctx.expr(1))
+        if ltype == rtype == BaseType.Boolean:
+            return BaseType.Boolean
+        self._raise(ctx, 'and operands', ltype, rtype)
 
     def visitEqualityExpr(self, ctx):
-        raise NotImplementedError()
+        ltype = self.visit(ctx.expr(0))
+        rtype = self.visit(ctx.expr(1))
+        self._assertSameType(ctx, 'equality operands', ltype, rtype)
+        return BaseType.Boolean
 
     def visitRelationalExpr(self, ctx):
-        raise NotImplementedError()
+        ltype = self.visit(ctx.expr(0))
+        rtype = self.visit(ctx.expr(1))
+        if ltype == rtype == BaseType.Integer:
+            return BaseType.Boolean
+        elif ltype == rtype == BaseType.Float:
+            return BaseType.Boolean
+        self._raise(ctx, 'relational operands', ltype, rtype)
 
     def visitAdditiveExpr(self, ctx):
         assert ctx.myop is not None
-        raise NotImplementedError()
+        ltype = self.visit(ctx.expr(0))
+        rtype = self.visit(ctx.expr(1))
+        if ltype == rtype == BaseType.Integer:
+            return BaseType.Integer
+        elif ltype == rtype == BaseType.Float:
+            return BaseType.Float
+        elif ctx.myop.type == MiniCParser.PLUS  and ltype == rtype == BaseType.String:
+            return BaseType.String
+        self._raise(ctx, 'additive operands', ltype, rtype)
 
     def visitMultiplicativeExpr(self, ctx):
         assert ctx.myop is not None
-        raise NotImplementedError()
+        ltype = self.visit(ctx.expr(0))
+        rtype = self.visit(ctx.expr(1))
+        if ltype == rtype == BaseType.Integer:
+            return BaseType.Integer
+        elif ctx.myop.type != MiniCParser.MOD and ltype == rtype == BaseType.Float:
+            return BaseType.Float
+        self._raise(ctx, 'multiplicative operands', ltype, rtype)
 
     def visitNotExpr(self, ctx):
-        raise NotImplementedError()
+        etype = self.visit(ctx.expr())
+        if etype == BaseType.Boolean:
+            return BaseType.Boolean
+        self._raise(ctx, 'not operand', etype)
 
     def visitUnaryMinusExpr(self, ctx):
-        raise NotImplementedError()
+        etype = self.visit(ctx.expr())
+        if etype == BaseType.Integer or etype == BaseType.Float:
+            return etype
+        self._raise(ctx, 'unary minus operand', etype)
 
     # visit statements
 
@@ -139,10 +183,34 @@ class MiniCTypingVisitor(MiniCVisitor):
             self._raise(ctx, 'println_string statement', etype)
 
     def visitAssignStat(self, ctx):
-        raise NotImplementedError()
+        var = ctx.ID().getText()
+        if var not in self._memorytypes:
+            self._raiseNonType(ctx, "Undefined variable {}".format(var))
+        vtype = self._memorytypes[var]
+        etype = self.visit(ctx.expr())
+        self._assertSameType(ctx, "{}".format(var), vtype, etype)
 
     def visitWhileStat(self, ctx):
-        raise NotImplementedError()
+        etype = self.visit(ctx.expr())
+        if etype != BaseType.Boolean:
+            self._raise(ctx, 'while statement', etype)
+        self.visit(ctx.body)
 
     def visitIfStat(self, ctx):
-        raise NotImplementedError()
+        etype = self.visit(ctx.expr())
+        if etype != BaseType.Boolean:
+            self._raise(ctx, 'if statement', etype)
+        self.visit(ctx.then_block)
+        if ctx.else_block is not None:
+            self.visit(ctx.else_block)
+
+    def visitForStat(self, ctx):
+        if ctx.init is not None:
+            self.visit(ctx.init)
+        if ctx.cond is not None:
+            etype = self.visit(ctx.cond)
+            if etype != BaseType.Boolean:
+                self._raise(ctx, 'for statement', etype)
+        if ctx.inc is not None:
+            self.visit(ctx.inc)
+        self.visit(ctx.body)

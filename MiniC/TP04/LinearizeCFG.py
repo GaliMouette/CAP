@@ -29,12 +29,16 @@ def linearize(cfg: CFG) -> List[Statement]:
         # 2. Add the body of the block to the linearization
         l.extend(block.get_body())
         # 3. Add the terminator of the block to the linearization
+        label = blocks[i + 1].get_label() if i + 1 < len(blocks) else None
         match block.get_terminator():
             case BranchingTerminator() as j:
-                l.append(ConditionalJump(j.cond, j.op1, j.op2, j.label_then))
-                l.append(AbsoluteJump(j.label_else))
+                if label is None or label != j.label_then:
+                    l.append(ConditionalJump(j.cond, j.op1, j.op2, j.label_then))
+                if label is None or label != j.label_else:
+                    l.append(AbsoluteJump(j.label_else))
             case AbsoluteJump() as j:
-                l.append(AbsoluteJump(j.label))
+                if label is None or label != j.label:
+                    l.append(AbsoluteJump(j.label))
             case Return():
                 l.append(AbsoluteJump(cfg.get_end()))
     return l

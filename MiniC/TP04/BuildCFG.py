@@ -20,7 +20,14 @@ def find_leaders(instructions: List[CodeStatement]) -> List[int]:
     last is len(instructions)
     """
     leaders: List[int] = [0]
-    # TODO fill leaders (Lab4b, Exercise 3)
+    for i in range(0, len(instructions)):
+        instr = instructions[i]
+        if isinstance(instr, AbsoluteJump) or isinstance(instr, ConditionalJump):
+            # An instruction following a jump is a leader
+            leaders.append(i+1)
+        elif isinstance(instr, Label):
+            # A label is a leader
+            leaders.append(i)
     # The final "ret" is also a form of jump
     leaders.append(len(instructions))
     return leaders
@@ -64,9 +71,16 @@ def prepare_chunk(pre_chunk: List[CodeStatement], fdata: FunctionData) -> tuple[
     jump = None
     inner_statements: List[CodeStatement] = pre_chunk
     # Extract the first instruction from inner_statements if it is a label, or create a fresh one
-    raise NotImplementedError() # TODO (Lab4b, Exercise 3)
+    if isinstance(inner_statements[0], Label):
+        label = inner_statements[0]
+        inner_statements = inner_statements[1:]
+    else:
+        label = fdata.fresh_label(fdata._name)
     # Extract the last instruction from inner_statements if it is a jump, or do nothing
-    raise NotImplementedError() # TODO (Lab4b, Exercise 3)
+    print(inner_statements)
+    if len(inner_statements) > 0 and (isinstance(inner_statements[-1], AbsoluteJump) or isinstance(inner_statements[-1], ConditionalJump)):
+        jump = inner_statements[-1]
+        inner_statements = inner_statements[:-1]
     # Check that there is no other label or jump left in inner_statements
     l: List[BlockInstr] = []
     for i in inner_statements:

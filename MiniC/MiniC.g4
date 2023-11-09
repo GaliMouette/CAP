@@ -24,7 +24,8 @@ stat
     : assignment SCOL
     | if_stat
     | while_stat
-    | print_stat  
+    | for_stat
+    | print_stat
     ;
 
 assignment: ID ASSIGN expr #assignStat;
@@ -39,6 +40,7 @@ stat_block
 
 while_stat: WHILE OPAR expr CPAR body=stat_block #whileStat;
 
+for_stat: FOR OPAR (init=assignment)? SCOL (cond=expr)? SCOL (inc=assignment)? CPAR body=stat_block #forStat;
 
 print_stat
     : PRINTLN_INT OPAR expr CPAR SCOL         #printlnintStat
@@ -101,6 +103,7 @@ FALSE : 'false';
 IF : 'if';
 ELSE : 'else';
 WHILE : 'while';
+FOR : 'for';
 RETURN : 'return';
 PRINTLN_INT : 'println_int';
 PRINTLN_BOOL : 'println_bool';
@@ -121,7 +124,7 @@ INT
  ;
 
 FLOAT
- : [0-9]+ '.' [0-9]* 
+ : [0-9]+ '.' [0-9]*
  | '.' [0-9]+
  ;
 
@@ -138,4 +141,3 @@ COMMENT
 SPACE
  : [ \t\r\n] -> skip
  ;
-

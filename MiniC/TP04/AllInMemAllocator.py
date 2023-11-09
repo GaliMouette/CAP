@@ -10,15 +10,17 @@ class AllInMemAllocator(Allocator):
     def replace(self, old_instr: Instruction) -> List[Instruction]:
         """Replace Temporary operands with the corresponding allocated
         memory location."""
-        numreg = 1
         before: List[Instruction] = []
         after: List[Instruction] = []
         subst: Dict[Operand, Operand] = {}
-        # TODO (Exercise 7): compute before,after,args.
-        # TODO (Exercise 7): iterate over old_args, check which argument
-        # TODO (Exercise 7): is a temporary (e.g. isinstance(..., Temporary)),
-        # TODO (Exercise 7): and if so, generate ld/sd accordingly. Replace the
-        # TODO (Exercise 7): temporary with S[1], S[2] or S[3] physical registers.
+        for i, arg in enumerate(old_instr.args(),start=1):
+            if isinstance(arg, Temporary):
+                subst[arg] = S[i]
+                loc = arg.get_alloced_loc()
+                if arg in old_instr.used():
+                    before.append(RiscV.ld(S[i], loc))
+                if arg in old_instr.defined():
+                    after.append(RiscV.sd(S[i], loc))
         new_instr = old_instr.substitute(subst)
         return before + [new_instr] + after
 

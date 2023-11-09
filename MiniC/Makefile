@@ -1,8 +1,8 @@
-MYNAME = JohnDoe
+MYNAME = AlexisCARRE
 PACKAGE = MiniC
 # Example: stop at the first failed test:
 #   make PYTEST_OPTS=-x test
-PYTEST_OPTS = 
+PYTEST_OPTS =
 # Run the whole test infrastructure for a subset of test files e.g.
 #   make FILTER='TP03/**/bad*.c' test
 ifdef FILTER
@@ -57,7 +57,7 @@ test-interpret: test-pyright test_interpreter.py main-deps
 ifndef MODE
 # The export must be on the same line as the command (note the ';'), because
 # make starts a new shell for each line.
-LINEAR=export MINICC_OPTS="${MINICC_OPTS} --mode codegen-linear"; 
+LINEAR=export MINICC_OPTS="${MINICC_OPTS} --mode codegen-linear";
 else
 LINEAR=
 endif

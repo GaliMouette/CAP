@@ -20,10 +20,18 @@ class MiniCInterpretVisitor(MiniCVisitor):
     def visitVarDecl(self, ctx) -> None:
         # Initialise all variables in self._memory
         type_str = ctx.typee().getText()
-        raise NotImplementedError()
+        for var in self.visit(ctx.id_l()):
+            if type_str == "int":
+                self._memory[var] = 0
+            elif type_str == "float":
+                self._memory[var] = 0.0
+            elif type_str == "bool":
+                self._memory[var] = False
+            elif type_str == "string":
+                self._memory[var] = ""
 
     def visitIdList(self, ctx) -> List[str]:
-        raise NotImplementedError()
+        return self.visitIdListBase(ctx) + self.visit(ctx.id_l())
 
     def visitIdListBase(self, ctx) -> List[str]:
         return [ctx.ID().getText()]
@@ -43,7 +51,8 @@ class MiniCInterpretVisitor(MiniCVisitor):
         return ctx.getText() == "true"
 
     def visitIdAtom(self, ctx) -> MINIC_VALUE:
-        raise NotImplementedError()
+        var = ctx.ID().getText()
+        return self._memory[var]
 
     def visitStringAtom(self, ctx) -> str:
         return ctx.getText()[1:-1]  # Remove the ""
@@ -119,8 +128,9 @@ class MiniCInterpretVisitor(MiniCVisitor):
             else:
                 return lval / rval
         elif ctx.myop.type == MiniCParser.MOD:
-            # TODO : interpret modulo
-            raise NotImplementedError()
+            if rval == 0:
+                raise MiniCRuntimeError("Division by 0")
+            return lval % rval
         else:
             raise MiniCInternalError(
                 f"Unknown multiplicative operator '{ctx.myop}'")
@@ -152,13 +162,32 @@ class MiniCInterpretVisitor(MiniCVisitor):
         print(val)
 
     def visitAssignStat(self, ctx) -> None:
-        raise NotImplementedError()
+        var = ctx.ID().getText()
+        self._memory[var] = self.visit(ctx.expr())
 
     def visitIfStat(self, ctx) -> None:
-        raise NotImplementedError()
+        if self.visit(ctx.expr()):
+            self.visit(ctx.stat_block(0))
+        elif ctx.ELSE() is not None:
+            self.visit(ctx.stat_block(1))
 
     def visitWhileStat(self, ctx) -> None:
-        raise NotImplementedError()
+        while self.visit(ctx.expr()):
+            self.visit(ctx.stat_block())
+
+    def visitForStat(self, ctx) -> None:
+        def visitBodyInc():
+            self.visit(ctx.body)
+            if ctx.inc is not None:
+                self.visit(ctx.inc)
+        if ctx.init is not None:
+            self.visit(ctx.init)
+        if ctx.cond is not None:
+            while self.visit(ctx.cond):
+                visitBodyInc()
+        else:
+            while True:
+                visitBodyInc()
 
     # TOPLEVEL
     def visitProgRule(self, ctx) -> None:
