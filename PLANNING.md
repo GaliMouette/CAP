@@ -96,3 +96,12 @@ _Academic first semester 2023-2024_
     * Smart Register Allocation [TP05b](TP05/tp5b.pdf).
     * Code in [MiniC/TP05/](MiniC/TP05/).
 
+# Week 9:
+
+- :book: Course: Monday 14/11/2023, 13h30-15h30. Amphi B (Ludovic Henrio)
+
+  * Functions: Code generation and typing [slides in english](course/cap_cours09A_func_codegen_typing.pdf)
+
+
+
+
