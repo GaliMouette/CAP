@@ -2,6 +2,7 @@ from typing import Dict, Set, Tuple
 from Lib.Operands import Temporary
 from Lib.Statement import Statement, regset_to_string
 from Lib.CFG import Block, CFG
+from Lib.PhiNode import PhiNode
 
 
 class LivenessSSA:
@@ -13,7 +14,7 @@ class LivenessSSA:
         # Temporary already propagated, by Block
         self._seen: Dict[Block, Set[Temporary]] = dict()
         # Live Temporary at outputs of Statement
-        self._liveout: Dict[Statement, Set[Temporary]] = dict()
+        self._liveout: Dict[tuple[Block, Statement], Set[Temporary]] = dict()
 
     def run(self) -> None:
         """Compute the liveness: fill out self._seen and self._liveout."""
@@ -21,7 +22,7 @@ class LivenessSSA:
         for block in self._cfg.get_blocks():
             self._seen[block] = set()
             for instr in block.get_all_statements():
-                self._liveout[instr] = set()
+                self._liveout[block, instr] = set()
         # Start the used-defined chains with backward propagation of liveness information
         for var, uses in self.gather_uses().items():
             for block, pos in uses:
@@ -74,7 +75,7 @@ class LivenessSSA:
         for block in self._cfg.get_blocks():
             print("Block " + str(block.get_label()) + ": {\n "
                   + ",\n ".join("\"{}\": {}"
-                  .format(instr, regset_to_string(self._liveout[instr]))
+                  .format(instr, regset_to_string(self._liveout[block, instr]))
                   for instr in block.get_all_statements()) +
                   "}")
         print("]")
