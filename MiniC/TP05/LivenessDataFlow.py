@@ -14,7 +14,7 @@ class LivenessDataFlow:
         self._blockin: Dict[Block, Set[Operand]] = {}
         self._blockout: Dict[Block, Set[Operand]] = {}
         # Live Operands at outputs of instructions
-        self._liveout: Dict[Statement, Set[Operand]] = {}
+        self._liveout: Dict[tuple[Block, Statement], Set[Operand]] = {}
 
     def run(self):
         self.set_gen_kill()
@@ -75,7 +75,7 @@ class LivenessDataFlow:
         for blk in self._function.get_blocks():
             liveset = self._blockout[blk]
             for instr in reversed(blk.get_all_statements()):
-                self._liveout[instr] = liveset
+                self._liveout[blk, instr] = liveset
                 liveset = (liveset - set(instr.defined())) | set(instr.used())
 
     def print_gen_kill(self):  # pragma: no cover
