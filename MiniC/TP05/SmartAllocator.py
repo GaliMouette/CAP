@@ -32,19 +32,13 @@ class SmartAllocator(Allocator):
         for i, arg in enumerate(old_instr.args(),start=1):
             if isinstance(arg, Temporary):
                 loc = arg.get_alloced_loc()
-                subst[arg] = loc
                 if isinstance(loc, Offset):
                     if arg in old_instr.used():
                         before.append(RiscV.ld(S[i], loc))
                     if arg in old_instr.defined():
                         after.append(RiscV.sd(S[i], loc))
-
-                # print("-----------------------------------------")
-                # print("arg = " + str(arg))
-                # print(arg.get_alloced_loc())
-                # print("-----------------------------------------")
-
-
+                    loc = S[i]
+                subst[arg] = loc
 
         # And now return the new list!
         instr = old_instr.substitute(subst)
@@ -113,10 +107,8 @@ class SmartAllocator(Allocator):
         # Use the coloring `coloringreg` to fill `alloc_dict`.
         # Our version is less than 5 lines of code.
         for temp in self._fdata._pool.get_all_temps():
-            if temp in coloringreg:
-                alloc_dict[temp] = GP_REGS[coloringreg[temp]]
-            else:
-                alloc_dict[temp] = self._fdata.fresh_offset()
+            color = coloringreg[temp]
+            alloc_dict[temp] = GP_REGS[color] if color in GP_REGS else self._fdata.fresh_offset()
         if self._debug:
             print("Allocation:")
             print(alloc_dict)
