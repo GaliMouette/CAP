@@ -28,9 +28,24 @@ class SmartAllocator(Allocator):
         before: List[Instruction] = []
         after: List[Instruction] = []
         subst: Dict[Operand, Operand] = {}
-        # TODO (lab5): Compute before, after, subst. This is similar to what
-        # TODO (lab5): replace from the Naive and AllInMem Allocators do (Lab 4).
-        raise NotImplementedError("Smart Replace (lab5)") # TODO
+
+        for i, arg in enumerate(old_instr.args(),start=1):
+            if isinstance(arg, Temporary):
+                loc = arg.get_alloced_loc()
+                subst[arg] = loc
+                if isinstance(loc, Offset):
+                    if arg in old_instr.used():
+                        before.append(RiscV.ld(S[i], loc))
+                    if arg in old_instr.defined():
+                        after.append(RiscV.sd(S[i], loc))
+
+                # print("-----------------------------------------")
+                # print("arg = " + str(arg))
+                # print(arg.get_alloced_loc())
+                # print("-----------------------------------------")
+
+
+
         # And now return the new list!
         instr = old_instr.substitute(subst)
         return before + [instr] + after
@@ -70,7 +85,12 @@ class SmartAllocator(Allocator):
         # Iterate over self._liveness._liveout (dictionary containing all
         # live out temporaries for each instruction), and for each conflict use
         # self._igraph.add_edge((t1, t2)) to add the corresponding edge.
-        raise NotImplementedError("build_interference_graph (lab5)") # TODO
+        for (block, instr), temps in self._liveness._liveout.items():
+            if len(temps) > 1:
+                for t1 in temps:
+                    for t2 in temps:
+                        if t1 != t2:
+                            self._igraph.add_edge((t1, t2))
 
     def smart_alloc(self) -> None:
         """
@@ -92,7 +112,11 @@ class SmartAllocator(Allocator):
         alloc_dict: Dict[Temporary, DataLocation] = dict()
         # Use the coloring `coloringreg` to fill `alloc_dict`.
         # Our version is less than 5 lines of code.
-        raise NotImplementedError("Allocation based on graph coloring (lab5)") # TODO
+        for temp in self._fdata._pool.get_all_temps():
+            if temp in coloringreg:
+                alloc_dict[temp] = GP_REGS[coloringreg[temp]]
+            else:
+                alloc_dict[temp] = self._fdata.fresh_offset()
         if self._debug:
             print("Allocation:")
             print(alloc_dict)

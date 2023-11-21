@@ -149,10 +149,10 @@ class MiniCCodeGen3AVisitor(MiniCVisitor):
         imm0 = Operands.Immediate(0)
         imm1 = Operands.Immediate(1)
         endl = self._current_function.fdata.fresh_label('end_rel_expr')
-        self._current_function.add_instruction(RiscV.li(dest, imm0))
-        jump = RiscV.conditional_jump(endl, tmpl, c.negate(), tmpr)
-        self._current_function.add_instruction(jump)
         self._current_function.add_instruction(RiscV.li(dest, imm1))
+        jump = RiscV.conditional_jump(endl, tmpl, c, tmpr)
+        self._current_function.add_instruction(jump)
+        self._current_function.add_instruction(RiscV.li(dest, imm0))
         self._current_function.add_label(endl)
         return dest
 

@@ -20,7 +20,6 @@ def linearize(cfg: CFG) -> List[Statement]:
     """
     Linearize the given control flow graph as a list of instructions.
     """
-    # TODO (Lab 4b, Exercise 5)
     l: List[Statement] = []  # Linearized CFG
     blocks: List[Block] = ordered_blocks_list(cfg)  # All blocks of the CFG
     for i, block in enumerate(blocks):
@@ -32,13 +31,10 @@ def linearize(cfg: CFG) -> List[Statement]:
         label = blocks[i + 1].get_label() if i + 1 < len(blocks) else None
         match block.get_terminator():
             case BranchingTerminator() as j:
-                if label is None or label != j.label_then:
-                    l.append(ConditionalJump(j.cond, j.op1, j.op2, j.label_then))
-                if label is None or label != j.label_else:
-                    l.append(AbsoluteJump(j.label_else))
+                l.append(ConditionalJump(j.cond, j.op1, j.op2, j.label_then))
+                l.append(AbsoluteJump(j.label_else))
             case AbsoluteJump() as j:
-                if label is None or label != j.label:
-                    l.append(AbsoluteJump(j.label))
+                l.append(AbsoluteJump(j.label))
             case Return():
                 l.append(AbsoluteJump(cfg.get_end()))
     return l

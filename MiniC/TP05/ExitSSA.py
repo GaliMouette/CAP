@@ -45,20 +45,20 @@ def exit_ssa(cfg: CFG, is_smart: bool) -> None:
         parents: List[Block] = b.get_in().copy()  # Copy as we modify it by adding blocks
         for parent in parents:
             moves = generate_moves_from_phis(phis, parent)
-            # if len(moves) == 0:
-                # continue
             label = Label("phi_{}_{}".format(b.get_label(), parent.get_label()))
-            match b.get_terminator():
-                case AbsoluteJump() as j:
-                    jump = AbsoluteJump(j.label)
-
-                    block = Block(label, moves, jump)
-                    cfg.add_block(block)
-
-                    b.set_terminator(AbsoluteJump(label))
-
-                case BranchingTerminator() as branch:
-                    pass
-
-            # TODO Add the block containing 'moves' to 'cfg'
-            # and update edges and jumps accordingly (Lab 5a, Exercise 6)
+            jump = AbsoluteJump(b.get_label())
+            block = Block(label, moves, jump)
+            cfg.add_block(block)
+            match parent.get_terminator():
+                case AbsoluteJump():
+                    parent.set_terminator(AbsoluteJump(label))
+                case BranchingTerminator() as bt:
+                    if b.get_label() == bt.label_then:
+                        bt.label_then = label
+                    elif b.get_label() == bt.label_else:
+                        bt.label_else = label
+                    else:
+                        raise Exception("exit_ssa: Unknown label")
+            cfg.remove_edge(parent, b)
+            cfg.add_edge(parent, block)
+            cfg.add_edge(block, b)
