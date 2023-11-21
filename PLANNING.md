@@ -102,6 +102,12 @@ _Academic first semester 2023-2024_
 
   * Functions: Code generation and typing [slides in english](course/cap_cours09A_func_codegen_typing.pdf)
 
+# Week 10:
+
+- :book: Course: Tuesday 21/11/2023, 13h30-15h30. Amphi B (Ludovic Henrio)
+
+  * Functions: semantics [slides in english](course/cap_cours09B_funsem.pdf)
+
 
 
 
