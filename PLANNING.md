@@ -108,6 +108,4 @@ _Academic first semester 2023-2024_
 
   * Functions: semantics [slides in english](course/cap_cours09B_funsem.pdf)
 
-
-
-
+- :notebook: TD: Thursday 23/11/2021, 8h00-10h00. Rooms E001 (Samuel Humeau & Hugo Thievenaz)
