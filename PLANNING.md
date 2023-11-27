@@ -108,11 +108,11 @@ _Academic first semester 2023-2024_
 
   * Functions: semantics [slides in english](course/cap_cours09B_funsem.pdf)
 
+
+- :notebook: TD: Thursday 23/11/2021, 8h00-10h00. Rooms E001 (Samuel Humeau & Hugo Thievenaz)
+
 # Week 11:
 
 - :book: Course: Tuesday 28/11/2023, 13h30-15h30. ROOM 435S (4th floor, south building) (Ludovic Henrio)
 
-  * Functions: semantics [slides in english](course/cap_cours11_parallelism.pdf)
-
-
-
+  * Parallelism 1 : Futures [slides in english](course/cap_cours11_parallelism.pdf)
