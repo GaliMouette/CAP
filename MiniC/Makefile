@@ -31,8 +31,6 @@ antlr MiniCLexer.py MiniCParser.py: $(PACKAGE).g4
 
 main-deps: MiniCLexer.py MiniCParser.py TP03/MiniCInterpretVisitor.py TP03/MiniCTypingVisitor.py
 
-.PHONY: test test-interpret test-codegen clean clean-tests tar antlr
-
 doc: antlr
 	sphinx-apidoc -e -f -o doc/api . TP* replace_* *Wrapper* MiniC* conf* test*
 	make -C doc html
@@ -113,3 +111,9 @@ clean: clean-tests
 .PHONY: install-deps
 install-deps:
 	python3 -m pip install antlr4-python3-runtime==4.11.1 pytest pytest-cov pytest-xdist coverage graphviz networkx pygraphviz
+
+.PHONY: test test-interpret test-codegen clean clean-tests tar antlr
+# multiple invocations of pytest in parallel would share temporary file names
+# and sometimes break. Parallelism can be achieved within pytest with
+# pytest-xdist, which is efficient and safe.
+.NOTPARALLEL:
