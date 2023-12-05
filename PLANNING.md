@@ -116,3 +116,11 @@ _Academic first semester 2023-2024_
 - :book: Course: Tuesday 28/11/2023, 13h30-15h30. ROOM 435S (4th floor, south building) (Ludovic Henrio)
 
   * Parallelism 1 : Futures [slides in english](course/cap_cours11_parallelism.pdf)
+  
+  # Week 12:
+
+- :book: Course: Tuesday 5/12/2023, 13h30-15h30. Amphi B (Ludovic Henrio)
+
+ * Parallelism 2 : Semantics, implementing languages, and advanced futures [slides in english](course/cap_cours13_parallelismAdvanced.pdf)
+ 
+
