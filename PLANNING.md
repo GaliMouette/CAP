@@ -133,6 +133,6 @@ _Academic first semester 2023-2024_
 
 - :book: Course: Tuesday 5/12/2023, 13h30-15h30. Amphi B (Ludovic Henrio)
 
- * Parallelism 2 : Semantics, implementing languages, and advanced futures [slides in english](course/cap_cours13_parallelismAdvanced.pdf)
+   * Parallelism 2 : Semantics, implementing languages, and advanced futures [slides in english](course/cap_cours13_parallelismAdvanced.pdf)
  
 
