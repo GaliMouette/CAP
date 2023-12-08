@@ -102,7 +102,7 @@ _Academic first semester 2023-2024_
 
   * Functions: Code generation and typing [slides in english](course/cap_cours09A_func_codegen_typing.pdf)
 
-- :hammer: Lab 5b (2/2): Thursday 16/11/2021, 8h00-10h00. Rooms E001 (Samuel Humeau & Hugo Thievenaz)
+- :hammer: Lab 5b (2/2): Thursday 16/11/2023, 8h00-10h00. Room E001 (Samuel Humeau & Hugo Thievenaz)
 
 # Week 10:
 
@@ -110,9 +110,7 @@ _Academic first semester 2023-2024_
 
   * Functions: semantics [slides in english](course/cap_cours09B_funsem.pdf)
 
-
-- :notebook: TD: Thursday 23/11/2021, 8h00-10h00. Rooms E001 (Samuel Humeau & Hugo Thievenaz)
-
+- :notebook: TD: Thursday 23/11/2023, 8h00-10h00. Room E001 (Samuel Humeau & Hugo Thievenaz)
 
 # Week 11:
 
@@ -120,19 +118,17 @@ _Academic first semester 2023-2024_
 
   * Parallelism 1 : Futures [slides in english](course/cap_cours11_parallelism.pdf)
 
-
-- :hammer: Choice Lab (1/3): Thursday 30/11/2021, 8h00-10h00. Rooms E001 (Samuel Humeau & Hugo Thievenaz)
+- :hammer: Choice Lab (1/3): Thursday 30/11/2023, 8h00-10h00. Room E001 (Samuel Humeau & Hugo Thievenaz)
 
     * Optimisations under SSA form [TP5c](TP05/tp5c.pdf), code in [MiniC/TPoptim/](MiniC/TPoptim/).
     * Parsing and typechecking functions [TP06a](TP06/tp6a.pdf), code in [MiniC/](MiniC/).
     * Going Parallel with futures [TPfutures](TPfutures/tpfutures.pdf), code in [TPfutures/MiniC-futures/](TPfutures/MiniC-futures/).
     * Code generation for functions [TP06b](TP06/tp6b.pdf), code in [MiniC/](MiniC/).  
   
-  
-  # Week 12:
+# Week 12:
 
 - :book: Course: Tuesday 5/12/2023, 13h30-15h30. Amphi B (Ludovic Henrio)
 
    * Parallelism 2 : Semantics, implementing languages, and advanced futures [slides in english](course/cap_cours13_parallelismAdvanced.pdf)
  
-
+- :hammer: Choice Lab (2/3): Thursday 07/12/2023, 8h00-10h00. Auditorium B (Samuel Humeau & Hugo Thievenaz)
